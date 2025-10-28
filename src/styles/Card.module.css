@@ -1,9 +1,21 @@
 .card {
-  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: hsl(210, 69%, 54%);
   border-radius: 20px;
   padding: 10px;
+  box-shadow: 0 2px 5px 0 rgb(0, 0, 0, 0.3);
 }
 
 .card img {
   border-radius: 20px;
+  object-fit: cover;
+  height: 250px;
+}
+
+.card p {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
 }

@@ -1,9 +1,12 @@
 import styles from "../styles/App.module.css";
 import { useEffect, useState } from "react";
+import Scoreboard from "./Scoreboard";
 import Card from "./Card";
 
 export default function App() {
   const [cardList, setCardList] = useState([]);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   useEffect(() => {
     async function getGif() {
@@ -12,13 +15,18 @@ export default function App() {
 
       try {
         const response = await fetch(
-          `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchTerm}&limit=12&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
+          "https://api.giphy.com/v1/gifs/search?api_key=" +
+            apiKey +
+            "&q=" +
+            searchTerm +
+            "&limit=12&offset=0&rating=g&lang=en&bundle=messaging_non_clips"
         );
         const searchData = await response.json();
         const cards = searchData.data.map((gif) => ({
           id: crypto.randomUUID(),
           url: gif.images.original.url,
           title: gif.title,
+          isSelected: false,
         }));
 
         setCardList(cards);
@@ -30,8 +38,26 @@ export default function App() {
     getGif();
   }, []);
 
-  function handleCardClick() {
-    setCardList(shuffle(cardList));
+  function handleCardClick(id) {
+    const clickedCard = cardList.find((card) => card.id === id);
+    if (clickedCard.isSelected) {
+      if (score > highScore) {
+        setHighScore(score);
+      }
+      setScore(0);
+      setCardList(cardList.map((card) => ({ ...card, isSelected: false })));
+      return;
+    }
+
+    const updatedCards = cardList.map((card) => {
+      if (card.id === id) {
+        return { ...card, isSelected: true };
+      } else {
+        return card;
+      }
+    });
+    setCardList(shuffle(updatedCards));
+    setScore(score + 1);
   }
 
   function shuffle(array) {
@@ -46,17 +72,19 @@ export default function App() {
   return (
     <div className={styles.app}>
       <header>
-        <h1>Cat Memory Game</h1>
-        <h2>Earn points by clicking on different images every round!</h2>
+        <div>
+          <h1>Cat Memory Game</h1>
+          <h2>Earn points by clicking on different images every round!</h2>
+        </div>
+        <Scoreboard score={score} highScore={highScore}></Scoreboard>
       </header>
-      {/* <Scoreboard></Scoreboard> */}
       <main>
         {cardList.map((card) => (
           <Card
             key={card.id}
             src={card.url}
             alt={card.title}
-            onClick={handleCardClick}
+            onClick={() => handleCardClick(card.id)}
           />
         ))}
       </main>

@@ -1,6 +1,6 @@
-# Project Name
+# Memory Card
 
-Description.
+Memory game where you score points by selecting cards you haven’t previously selected.
 
 ## Live Demo
 
@@ -11,4 +11,4 @@ Description.
 - HTML
 - CSS
 - JavaScript
-- Vite
+- React

@@ -1,5 +1,5 @@
 .app {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -10,13 +10,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 20px 50px;
   color: white;
 }
 
 .app main {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 10px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;
+  gap: 20px;
+  padding: 50px;
+  padding-top: 0px;
+}
+
+@media (max-width: 1000px) {
+  .app header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .app header h1,
+  .app header h2 {
+    text-align: center;
+  }
 }

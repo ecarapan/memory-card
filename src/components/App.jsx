@@ -45,7 +45,11 @@ export default function App() {
         setHighScore(score);
       }
       setScore(0);
-      setCardList(cardList.map((card) => ({ ...card, isSelected: false })));
+      const updatedCards = cardList.map((card) => ({
+        ...card,
+        isSelected: false,
+      }));
+      setCardList(shuffle(updatedCards));
       return;
     }
 
@@ -81,7 +85,6 @@ export default function App() {
       <main>
         {cardList.map((card) => (
           <Card
-            key={card.id}
             src={card.url}
             alt={card.title}
             onClick={() => handleCardClick(card.id)}

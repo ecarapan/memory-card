@@ -4,7 +4,7 @@ Memory game where you score points by selecting cards you haven’t previously s
 
 ## Live Demo
 
-[https://ecarapan-memory-card.vercel.app/](https://ecarapan-memory-card.vercel.app/)
+[https://ecarapan-memory-card.vercel.app/](https://ecarapan-memory-card.netlify.app/)
 
 ## Technologies
 
